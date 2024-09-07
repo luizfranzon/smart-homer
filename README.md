@@ -1,7 +1,11 @@
 ## ESP32 API REST + Smart Home App
 
-<p align="center">
+<!-- <p align="center">
   <img width="300" src=".github/images/ESP32.png">
+</p> -->
+
+<p align="center">
+  <img width="300" src=".github/images/mockup.png">
 </p>
 
 ## ESP32 Routes:
