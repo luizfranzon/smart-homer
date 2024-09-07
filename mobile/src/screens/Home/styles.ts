@@ -77,14 +77,25 @@ export const WelcomeHouseImage = styled.Image`
   resize-mode: stretch;
 `
 
-export const DeviceListContainer = styled.View`
+export const DeviceContainer = styled.View`
   width: 100%;
   margin-top: 40px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  /* justify-content: space-between; */
 `
 
 export const DeviceListTitle = styled.Text`
   font-size: 20px;
-  font-family: "Quicksand_700Bold"
+  font-family: "Quicksand_700Bold";
+`
+
+export const DeviceList = styled.View`
+  width: 100%;
+  margin-top: 20px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
 `
