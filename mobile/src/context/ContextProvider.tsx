@@ -9,6 +9,7 @@ interface DeviceContext {
     endPoint: string;
   }[],
   setDeviceList: (deviceList: any) => void;
+  fetchDaviceData: () => void;
 }
 
 interface ResponseData {
@@ -37,7 +38,8 @@ export const DeviceContext = createContext<DeviceContext>({
       endPoint: 'pin16'
     }
   ],
-  setDeviceList: () => {}
+  setDeviceList: () => {},
+  fetchDaviceData: () => {}
 })
 
 export function DeviceContextProvider({ children }: { children: React.ReactNode }) {
@@ -64,6 +66,11 @@ export function DeviceContextProvider({ children }: { children: React.ReactNode 
   ])
 
   useEffect(() => {
+    fetchDaviceData()
+  }, [])
+
+  async function fetchDaviceData() {
+    console.log('fetching data');
     axios.get('http://192.168.0.204/api/lights')
       .then(response => {
         console.log(response.data);
@@ -94,10 +101,10 @@ export function DeviceContextProvider({ children }: { children: React.ReactNode 
       .catch(error => {
         console.log(error);
       });
-  }, [])
+  }
 
   return (
-    <DeviceContext.Provider value={{ deviceList, setDeviceList }}>
+    <DeviceContext.Provider value={{ deviceList, setDeviceList, fetchDaviceData }}>
       {children}
     </DeviceContext.Provider>
   )

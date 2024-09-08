@@ -6,7 +6,7 @@ export const Container = styled.View`
   align-items: center;
   justify-content: center;
 
-  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  font-family: "Quicksand_400Regular";
 
   padding: 0 20px;
 `;
@@ -60,13 +60,13 @@ export const WelcomeText = styled.Text`
   display: flex;
   flex-direction: col;
   align-items: center;
-  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  font-family: "Quicksand_400Regular";
 `
 
 export const WelcomeTextBold = styled.Text`
   /* font-weight: bold; */
   font-size: 20px;
-  font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
+  font-family: "Quicksand_700Bold";
 `
 
 export const WelcomeHouseImage = styled.Image`

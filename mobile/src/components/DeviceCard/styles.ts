@@ -34,6 +34,6 @@ export const DeviceTitleContainer = styled.View`
 
 export const DeviceTitle = styled.Text<{ isActivated: boolean }>`
   font-size: 16px;
-  font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
+  font-family: "Quicksand_700Bold";
   color: ${({ isActivated }) => isActivated ? '#f6f8fc' : '#000000'};
 `

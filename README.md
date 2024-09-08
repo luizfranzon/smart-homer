@@ -12,7 +12,6 @@
 **GET**
 /api/lights/
 ```json
-//Response
 {
     "pin16": false,
     "pin17": false
@@ -22,7 +21,6 @@
 
 **POST** /api/lights/pin16=1
 ```json
-//Response
 {
     "pin16": true,
     "pin17": false

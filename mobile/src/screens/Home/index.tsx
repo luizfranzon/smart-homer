@@ -5,16 +5,28 @@ import menuIcon from '../../assets/list.png';
 import houseImage from '../../assets/house.png';
 
 import { DeviceCard } from '@components/DeviceCard';
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { DeviceContext } from 'src/context/ContextProvider';
-import { ScrollView } from 'react-native';
+import { ScrollView, RefreshControl } from 'react-native';
 
 export function Home() {
 
-  const { deviceList, setDeviceList } = useContext(DeviceContext);
+  const { deviceList, setDeviceList, fetchDaviceData } = useContext(DeviceContext);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    fetchDaviceData();
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   return (
-    <ScrollView>
+    <ScrollView refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    }>
       <Container>
         <Header>
           <MenuButton source={menuIcon} />
