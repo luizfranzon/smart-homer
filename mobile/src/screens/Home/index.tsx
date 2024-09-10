@@ -12,7 +12,6 @@ import { ScrollView, RefreshControl } from 'react-native';
 export function Home() {
 
   const { deviceList, setDeviceList, fetchDaviceData } = useContext(DeviceContext);
-
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -36,9 +35,9 @@ export function Home() {
         </Header>
         <WelcomeContainer>
           <WelcomeText>
-            Seja bem-vinda!
+            Seja bem-vindo!
           </WelcomeText>
-          <WelcomeTextBold>Giovanna Fogaça.</WelcomeTextBold>
+          <WelcomeTextBold>Luiz Fernando.</WelcomeTextBold>
           <WelcomeHouseImage source={houseImage} />
         </WelcomeContainer>
         <DeviceContainer>

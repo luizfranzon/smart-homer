@@ -5,15 +5,29 @@
 const char *ssid = "SmartHomer_ESP32";
 const char *password = "senhafoda8520";
 
+const bool isAccessPointMode = true;
+
 WiFiServer server(80);
 
 String header;
 
 boolean isPin16On = false;
 boolean isPin17On = false;
+boolean isPin18On = false;
 
 const int room1 = 16;
 const int room2 = 17;
+const int room3 = 18;
+
+void resetPins()
+{
+  pinMode(room1, OUTPUT);
+  digitalWrite(room1, LOW);
+  pinMode(room2, OUTPUT);
+  digitalWrite(room2, LOW);
+  pinMode(room3, OUTPUT);
+  digitalWrite(room3, LOW);
+}
 
 unsigned long currentTime = millis();
 unsigned long previousTime = 0;
@@ -23,45 +37,36 @@ StaticJsonDocument<1024> jsonDocument;
 char buffer[1024];
 
 // Connect to Wifi Mode
-// void setup()
-// {
-//   Serial.begin(115200);
-
-//   pinMode(room1, OUTPUT);
-//   digitalWrite(room1, LOW);
-//   pinMode(room2, OUTPUT);
-//   digitalWrite(room2, LOW);
-
-//   WiFi.begin("", "");
-
-//   while (WiFi.status() != WL_CONNECTED)
-//   {
-//     delay(1000);
-//     Serial.println("Connecting to WiFi...");
-//   }
-
-//   Serial.println("Connected to the WiFi network");
-//   Serial.println(WiFi.localIP());
-//   server.begin();
-// }
-
-// Access Point Mode
 void setup()
 {
-
+  delay(3000);
   Serial.begin(115200);
+  delay(3000);
 
-  pinMode(room1, OUTPUT);
-  digitalWrite(room1, LOW);
-  pinMode(room2, OUTPUT);
-  digitalWrite(room2, LOW);
+  resetPins();
 
-  WiFi.softAP(ssid, password);
+  if (isAccessPointMode)
+  {
+    WiFi.softAP(ssid, password);
+    Serial.println("");
+    Serial.println("IP address: ");
+    Serial.println(WiFi.softAPIP());
+  }
 
-  Serial.println("");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.softAPIP());
-  server.begin();
+  if (!isAccessPointMode)
+  {
+    WiFi.begin("Fernando-2.4GHz", "fr@nzOn8520");
+
+    while (WiFi.status() != WL_CONNECTED)
+    {
+      delay(1000);
+      Serial.println("Connecting to WiFi...");
+    }
+
+    Serial.println("Connected to the WiFi network");
+    Serial.println(WiFi.localIP());
+    server.begin();
+  }
 }
 
 void handleGetRequest(WiFiClient &client)
@@ -69,6 +74,7 @@ void handleGetRequest(WiFiClient &client)
   jsonDocument.clear();
   jsonDocument["pin16"] = isPin16On;
   jsonDocument["pin17"] = isPin17On;
+  jsonDocument["pin18"] = isPin18On;
   serializeJson(jsonDocument, buffer);
   client.println(buffer);
 }
@@ -79,27 +85,45 @@ void handlePostRequest(WiFiClient &client)
   {
     isPin16On = true;
     digitalWrite(room1, HIGH);
+    Serial.println("pin 16 ligado");
   }
   else if (header.indexOf("POST /api/lights/pin16=0") >= 0)
   {
     isPin16On = false;
     digitalWrite(room1, LOW);
+    Serial.println("pin 16 desligado");
   }
 
   if (header.indexOf("POST /api/lights/pin17=1") >= 0)
   {
     isPin17On = true;
     digitalWrite(room2, HIGH);
+    Serial.println("pin 17 ligado");
   }
   else if (header.indexOf("POST /api/lights/pin17=0") >= 0)
   {
     isPin17On = false;
     digitalWrite(room2, LOW);
+    Serial.println("pin 17 desligado");
+  }
+
+  if (header.indexOf("POST /api/lights/pin18=1") >= 0)
+  {
+    isPin18On = true;
+    digitalWrite(room3, HIGH);
+    Serial.println("pin 18 ligado");
+  }
+  else if (header.indexOf("POST /api/lights/pin18=0") >= 0)
+  {
+    isPin18On = false;
+    digitalWrite(room3, LOW);
+    Serial.println("pin 18 desligado");
   }
 
   jsonDocument.clear();
   jsonDocument["pin16"] = isPin16On;
   jsonDocument["pin17"] = isPin17On;
+  jsonDocument["pin18"] = isPin18On;
   serializeJson(jsonDocument, buffer);
   client.println(buffer);
 }
