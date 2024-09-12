@@ -51,6 +51,7 @@ void setup()
     Serial.println("");
     Serial.println("IP address: ");
     Serial.println(WiFi.softAPIP());
+    server.begin();
   }
 
   if (!isAccessPointMode)

@@ -18,7 +18,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.luizfranzon.smarthome"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -28,11 +29,16 @@
         "expo-font",
         {
           "fonts": [
-          "node_modules/@expo-google-fonts/quicksand/Quicksand_400Regular.ttf", 
-          "node_modules/@expo-google-fonts/quicksand/Quicksand_700Bold.ttf"
+            "node_modules/@expo-google-fonts/quicksand/Quicksand_400Regular.ttf",
+            "node_modules/@expo-google-fonts/quicksand/Quicksand_700Bold.ttf"
           ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "b3e2f570-0e3d-43c9-b168-6e089b8f8a38"
+      }
+    }
   }
 }

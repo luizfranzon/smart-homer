@@ -15,6 +15,7 @@ interface DeviceCardProps {
 interface ResponseData {
   pin16: boolean;
   pin17: boolean;
+  pin18: boolean;
 }
 
 const iconsSrc = [
@@ -30,7 +31,7 @@ export function DeviceCard({ deviceName, deviceIcon, isActived, endPoint }: Devi
   const { setDeviceList } = useContext(DeviceContext);
 
   function handleTogleDeviceStatus() {
-    axios.post(`http://192.168.0.204/api/lights/${endPoint}=${isActived ? 0 : 1}`)
+    axios.post(`http://192.168.4.1/api/lights/${endPoint}=${isActived ? 0 : 1}`)
       .then(response => {
         const responseData: ResponseData = response.data;
         console.log(responseData.pin16)
@@ -50,8 +51,8 @@ export function DeviceCard({ deviceName, deviceIcon, isActived, endPoint }: Devi
           {
             deviceName: 'Quarto',
             deviceIcon: 'lamp',
-            isActived: responseData.pin16,
-            endPoint: 'pin16'
+            isActived: responseData.pin18,
+            endPoint: 'pin18'
           }
         ])
       })

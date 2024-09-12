@@ -61,7 +61,7 @@ export function DeviceContextProvider({ children }: { children: React.ReactNode 
       deviceName: 'Quarto',
       deviceIcon: 'lamp',
       isActived: false,
-      endPoint: 'pin16'
+      endPoint: 'pin18'
     }
   ])
 
@@ -71,7 +71,7 @@ export function DeviceContextProvider({ children }: { children: React.ReactNode 
 
   async function fetchDaviceData() {
     console.log('fetching data');
-    axios.get('http://192.168.0.204/api/lights')
+    axios.get('http://192.168.4.1/api/lights')
       .then(response => {
         console.log(response.data);
         const responseData = response.data as ResponseData;
@@ -93,7 +93,7 @@ export function DeviceContextProvider({ children }: { children: React.ReactNode 
             deviceName: 'Quarto',
             deviceIcon: 'lamp',
             isActived: responseData.pin16,
-            endPoint: 'pin17'
+            endPoint: 'pin18'
           }
         ])
 
