@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Gerenciar dispositivos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (devices().length === 0) {
+    <ion-card>
+      <ion-card-content>
+        <ion-text>
+          <h2>Nenhum dispositivo encontrado</h2>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  } @else {
+    <ion-list>
+      <ion-item *ngFor="let device of devices()">
+        <ion-label>{{ device.title }}</ion-label>
+        <ion-button>
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  }
+</ion-content>

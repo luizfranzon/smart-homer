@@ -1,0 +1,7 @@
+{
+  "name": "smart-homer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
