@@ -153,6 +153,7 @@ void handleClient(WiFiClient &client)
         if (currentLine.length() == 0)
         {
           client.println("HTTP/1.1 200 OK");
+          client.println("Access-Control-Allow-Origin: *");
           client.println("Content-type:application/json");
           client.println("Connection: close");
           client.println();
