@@ -1,6 +1,7 @@
 #include <WiFi.h>
 #include <Arduino.h>
 #include <ArduinoJson.h>
+#include <ESP32Servo.h>
 
 const char *ssid = "SmartHomer_ESP32";
 const char *password = "senhafoda8520";
@@ -8,6 +9,10 @@ const char *password = "senhafoda8520";
 const bool isAccessPointMode = true;
 
 WiFiServer server(80);
+Servo myservo;
+
+int pos = 0;
+int servoDelay = 15;
 
 String header;
 
@@ -44,6 +49,9 @@ void setup()
   delay(3000);
 
   resetPins();
+
+  myservo.setPeriodHertz(50);
+  myservo.attach(room3, 500, 2400);
 
   if (isAccessPointMode)
   {
@@ -111,13 +119,21 @@ void handlePostRequest(WiFiClient &client)
   if (header.indexOf("POST /api/lights/pin18=1") >= 0)
   {
     isPin18On = true;
-    digitalWrite(room3, HIGH);
+    for (pos = 0; pos <= 180; pos += 1)
+    {
+      myservo.write(pos);
+      delay(servoDelay);
+    }
     Serial.println("pin 18 ligado");
   }
   else if (header.indexOf("POST /api/lights/pin18=0") >= 0)
   {
     isPin18On = false;
-    digitalWrite(room3, LOW);
+    for (pos = 180; pos >= 0; pos -= 1)
+    {
+      myservo.write(pos);
+      delay(servoDelay);
+    }
     Serial.println("pin 18 desligado");
   }
 
