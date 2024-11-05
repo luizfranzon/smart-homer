@@ -6,12 +6,12 @@ import { StatusBar } from "react-native"
 import { Home } from '@screens/Home';
 import { Loading } from "@components/Loading";
 
-import { useFonts, Quicksand_400Regular, Quicksand_700Bold } from "@expo-google-fonts/quicksand"
+import { useFonts, Quicksand_700Bold } from "@expo-google-fonts/quicksand"
 import { DeviceContextProvider } from "src/context/ContextProvider";
 
 export default function App() {
 
-  const [isFontsLoaded] = useFonts({ Quicksand_400Regular, Quicksand_700Bold, })
+  const [isFontsLoaded] = useFonts({ Quicksand_700Bold })
 
   return (
     <DeviceContextProvider>

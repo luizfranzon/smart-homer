@@ -15,6 +15,7 @@ interface DeviceContext {
 interface ResponseData {
   pin16: boolean;
   pin17: boolean;
+  pin18: boolean;
 }
 
 export const DeviceContext = createContext<DeviceContext>({
@@ -26,16 +27,16 @@ export const DeviceContext = createContext<DeviceContext>({
       endPoint: 'pin16'
     },
     {
-      deviceName: 'Cozinha',
+      deviceName: 'Quarto',
       deviceIcon: 'lamp',
       isActived: true,
       endPoint: 'pin17'
     },
     {
-      deviceName: 'Quarto',
-      deviceIcon: 'lamp',
+      deviceName: 'Janela',
+      deviceIcon: 'window',
       isActived: true,
-      endPoint: 'pin16'
+      endPoint: 'pin18'
     }
   ],
   setDeviceList: () => {},
@@ -52,14 +53,14 @@ export function DeviceContextProvider({ children }: { children: React.ReactNode 
       endPoint: 'pin16'
     },
     {
-      deviceName: 'Cozinha',
+      deviceName: 'Quarto',
       deviceIcon: 'lamp',
       isActived: false,
       endPoint: 'pin17'
     },
     {
-      deviceName: 'Quarto',
-      deviceIcon: 'lamp',
+      deviceName: 'Janela',
+      deviceIcon: 'window',
       isActived: false,
       endPoint: 'pin18'
     }
@@ -84,22 +85,22 @@ export function DeviceContextProvider({ children }: { children: React.ReactNode 
             endPoint: 'pin16'
           },
           {
-            deviceName: 'Cozinha',
+            deviceName: 'Quarto',
             deviceIcon: 'lamp',
             isActived: responseData.pin17,
             endPoint: 'pin17'
           },
           {
-            deviceName: 'Quarto',
+            deviceName: 'Janela',
             deviceIcon: 'lamp',
-            isActived: responseData.pin16,
+            isActived: responseData.pin18,
             endPoint: 'pin18'
           }
         ])
 
       })
       .catch(error => {
-        console.log(error);
+        console.log(`Error: ${error}`);
       });
   }
 

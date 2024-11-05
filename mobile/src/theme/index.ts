@@ -7,7 +7,6 @@ export default {
     },
   },
   FONT_FAMILY: {
-    REGULAR: 'Quicksand_400Regular',
     MEDIUM: 'Quicksand_500Medium',
     BOLD: 'Quicksand_700Bold',
   },

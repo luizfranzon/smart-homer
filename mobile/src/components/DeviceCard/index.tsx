@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react';
 import { DeviceCardContainer, DeviceIcon, DeviceTitle, DeviceTitleContainer } from './styles';
-import { Switch } from "react-native"
-import axios from 'axios';
 import { DeviceContext } from 'src/context/ContextProvider';
+import { Switch } from "react-native"
+import { useContext } from 'react';
+import axios from 'axios';
 
 interface DeviceCardProps {
   deviceName: string;
@@ -23,7 +23,12 @@ const iconsSrc = [
     name: 'lamp',
     onSrc: require('../../assets/on-lamp.png'),
     offSrc: require('../../assets/off-lamp.png')
-  }
+  },
+  {
+    name: 'window',
+    onSrc: require('../../assets/window-on.png'),
+    offSrc: require('../../assets/window-off.png')
+  },
 ]
 
 export function DeviceCard({ deviceName, deviceIcon, isActived, endPoint }: DeviceCardProps) {
@@ -31,10 +36,11 @@ export function DeviceCard({ deviceName, deviceIcon, isActived, endPoint }: Devi
   const { setDeviceList } = useContext(DeviceContext);
 
   function handleTogleDeviceStatus() {
-    axios.post(`http://192.168.4.1/api/lights/${endPoint}=${isActived ? 0 : 1}`)
+    const url = `http://192.168.4.1/api/lights/${endPoint}=${isActived ? 0 : 1}`
+    console.log(url)
+    axios.post(url)
       .then(response => {
         const responseData: ResponseData = response.data;
-        console.log(responseData.pin16)
         setDeviceList([
           {
             deviceName: 'Sala',
@@ -43,29 +49,37 @@ export function DeviceCard({ deviceName, deviceIcon, isActived, endPoint }: Devi
             endPoint: 'pin16'
           },
           {
-            deviceName: 'Cozinha',
+            deviceName: 'Quarto',
             deviceIcon: 'lamp',
             isActived: responseData.pin17,
             endPoint: 'pin17'
           },
           {
-            deviceName: 'Quarto',
-            deviceIcon: 'lamp',
+            deviceName: 'Janela',
+            deviceIcon: 'window',
             isActived: responseData.pin18,
             endPoint: 'pin18'
           }
         ])
+      }).catch(error => {
+        console.log(`Error: ${error}`);
       })
   }
 
   return (
     <DeviceCardContainer onPress={handleTogleDeviceStatus} isActivated={isActived}>
-      <DeviceIcon source={isActived ? iconsSrc[0].onSrc : iconsSrc[0].offSrc} />
+      {
+        deviceIcon === 'lamp' ?
+          <DeviceIcon source={isActived ? iconsSrc[0].onSrc : iconsSrc[0].offSrc} />
+          :
+          <DeviceIcon source={isActived ? iconsSrc[1].onSrc : iconsSrc[1].offSrc} />
+      }
       <DeviceTitleContainer>
         <DeviceTitle isActivated={isActived}>
           {deviceName}
         </DeviceTitle>
         <Switch
+          onChange={() => handleTogleDeviceStatus()}
           trackColor={{ false: '#dbe2ea', true: '#ffffff' }}
           thumbColor={isActived ? '#ffffff' : '#ffffff'}
           ios_backgroundColor="#3e3e3e"

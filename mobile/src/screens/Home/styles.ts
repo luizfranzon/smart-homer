@@ -6,8 +6,6 @@ export const Container = styled.View`
   align-items: center;
   justify-content: center;
 
-  font-family: "Quicksand_400Regular";
-
   padding: 0 20px;
 `;
 
@@ -60,7 +58,6 @@ export const WelcomeText = styled.Text`
   display: flex;
   flex-direction: col;
   align-items: center;
-  font-family: "Quicksand_400Regular";
 `
 
 export const WelcomeTextBold = styled.Text`
